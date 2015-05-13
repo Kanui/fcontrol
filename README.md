@@ -159,8 +159,8 @@ Bugs and feature request are tracked on [GitHub](https://github.com/Kanui/fcontr
 
 ### License
 
-FControl Library is licensed under the MIT License - see the `[LICENSE](https://github.com/Kanui/fcontrol/blob/master/LICENSE)`
- file for details/
+FControl Library is licensed under the MIT License - see the [LICENSE](https://github.com/Kanui/fcontrol/blob/master/LICENSE)
+ file for details
 
 ### Acknowledgements
 
