@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         verbose="false"
+         bootstrap="./src/Tests/bootstrap.php">
+<testsuites>
+        <testsuite name="FControl Test Suite">
+            <directory>./src/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <blacklist>
+            <directory>./vendor</directory>
+        </blacklist>
+    </filter>
+    <logging>
+        <!--<log type="coverage-html" target="build/coverage" title="FControl" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>-->
+        <!--<log type="coverage-clover" target="build/logs/clover.xml"/>-->
+        <!--<log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>-->
+        <!--<log type="testdox-text" target="php://stdout"/>-->
+    </logging>
+</phpunit>
