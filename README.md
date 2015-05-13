@@ -166,3 +166,5 @@ FControl Library is licensed under the MIT License - see the `[LICENSE](https://
 
 This library not have all operations to integrate fully with FControl System,
 but have the base to get a simple and quick integration with it.
+Trip transactions is not available yet, but you can implementing it and send
+us a PR.
