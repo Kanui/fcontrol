@@ -1,5 +1,5 @@
 <?php
-namespace FControl\Tests;
+namespace FControl\Tests\Client;
 
 use FControl\Configuration;
 use FControl\Parameter\CaptureOrderCollection;
@@ -8,7 +8,7 @@ use FControl\Parameter\ConfirmOrder;
 use FControl\Parameter\OrderStatus;
 use FControl\Parameter\Reason;
 use FControl\Parameter\Status;
-use FControl\SoapClient;
+use FControl\Client\SoapClient;
 use FControl\Tests\Providers\Message\CaptureFailed;
 use FControl\Tests\Providers\Message\CaptureOrderCollectionSuccessful;
 use FControl\Tests\Providers\Message\CaptureSuccessful;
@@ -114,7 +114,7 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
     {
         $configuration = new Configuration('https://localhost.dev/', 'username', 'password', null, true);
 
-        $mock = $this->getMockBuilder('FControl\SoapClient')
+        $mock = $this->getMockBuilder('FControl\Client\SoapClient')
             ->disableOriginalConstructor()
             ->setMethods(array('getConfiguration', '__call', '__soapCall'))
             ->getMock();

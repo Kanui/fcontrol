@@ -3,6 +3,7 @@
 namespace FControl\Parameter;
 
 use FControl\Configuration;
+use FControl\ConfigurationInterface;
 
 class OrderStatus extends AbstractParameter
 {
@@ -58,9 +59,9 @@ class OrderStatus extends AbstractParameter
     }
 
     /**
-     * @param Configuration $configuration
+     * @param ConfigurationInterface $configuration
      */
-    public function setAuthentication(Configuration $configuration)
+    public function setAuthentication(ConfigurationInterface $configuration)
     {
         $this->login = $configuration->getLogin();
         $this->senha = $configuration->getPassword();

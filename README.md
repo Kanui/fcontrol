@@ -23,7 +23,7 @@ Send an order transaction to be analyzed by FControl.
 <?php
 
 use FControl\Configuration;
-use FControl\SoapClient;
+use FControl\Client\SoapClient;
 use FControl\Message\PublishResponse;
 use FControl\Tests\Providers\Order as OrderProvider;
 
@@ -60,7 +60,7 @@ transaction will be available with its results.
 use FControl\Configuration;
 use FControl\Message\CaptureResponse;
 use FControl\Parameter\CaptureOrder;
-use FControl\SoapClient;
+use FControl\Client\SoapClient;
 
 // store id is used if you have many stores in FControl system
 $storeId = null;
@@ -92,7 +92,7 @@ If not confirm this analysis will always be available for capture.
 <?php
 
 use FControl\Configuration;
-use FControl\SoapClient;
+use FControl\Client\SoapClient;
 use FControl\Message\ConfirmResponse;
 use FControl\Parameter\ConfirmOrder;
 
@@ -123,7 +123,7 @@ System, you can use this method.
 <?php
 
 use FControl\Configuration;
-use FControl\SoapClient;
+use FControl\Client\SoapClient;
 use FControl\Message\OrderStatusResponse;
 use FControl\Parameter\ConfirmOrder;
 use FControl\Parameter\Reason;

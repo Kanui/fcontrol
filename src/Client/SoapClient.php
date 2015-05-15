@@ -1,7 +1,8 @@
 <?php
 
-namespace FControl;
+namespace FControl\Client;
 
+use FControl\ConfigurationInterface;
 use FControl\Message\CaptureCollectionResponse;
 use FControl\Message\CaptureResponse;
 use FControl\Message\ConfirmResponse;
@@ -14,10 +15,10 @@ use FControl\Parameter\ConfirmOrder;
 use FControl\Parameter\Order;
 use FControl\Parameter\OrderStatus;
 
-class SoapClient extends \SoapClient
+class SoapClient extends \SoapClient implements ClientInterface
 {
     /**
-     * @var Configuration
+     * @var ConfigurationInterface
      */
     protected $configuration;
 
@@ -35,7 +36,7 @@ class SoapClient extends \SoapClient
 
     /**
      * Get the configuration of service.
-     * @return Configuration
+     * @return ConfigurationInterface
      */
     public function getConfiguration()
     {
