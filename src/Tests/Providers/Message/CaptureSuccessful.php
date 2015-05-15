@@ -2,14 +2,16 @@
 
 namespace FControl\Tests\Providers\Message;
 
+use FControl\Parameter\CaptureOrder;
+
 class CaptureSuccessful extends \stdClass implements SuccessfulInterface
 {
     public $capturarResultadoEspecificoSubLoja3Result;
 
-    public function __construct()
+    public function __construct(CaptureOrder $order)
     {
         $this->capturarResultadoEspecificoSubLoja3Result = (object)array(
-            'CodigoCompra' => rand(100,999),
+            'CodigoCompra' => $order->getOrderNumber(),
             'Status' => 7,
             'CodigoMotivo' => 0,
             'Comentario' => '',

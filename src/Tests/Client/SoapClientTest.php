@@ -24,10 +24,11 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToPublishAPurchaseOrderAndExpectASuccessfulMessage()
     {
-        $expectedResponse = new PublishSuccessful();
+        $order = new OrderProvider();
+        $expectedResponse = new PublishSuccessful($order);
         $client = $this->getMockSoapClient($expectedResponse);
 
-        $response = $client->publish(new OrderProvider());
+        $response = $client->publish($order);
 
         $this->assertInstanceOf('\FControl\Message\PublishResponse', $response);
         $this->assertTrue($response->isSuccess());
@@ -37,11 +38,11 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToCaptureAPurchaseOrderAndExpectASuccessfulMessage()
     {
-        $expectedResponse = new CaptureSuccessful();
-        $expectedResponse->capturarResultadoEspecificoSubLoja3Result->CodigoCompra = 9900;
+        $order = new CaptureOrder(9900);
+        $expectedResponse = new CaptureSuccessful($order);
 
         $client = $this->getMockSoapClient($expectedResponse);
-        $response = $client->captureOrder(new CaptureOrder(9900));
+        $response = $client->captureOrder($order);
         $this->assertInstanceOf('\FControl\Message\CaptureResponse', $response);
         $this->assertTrue($response->isSuccess());
         $this->assertEquals(9900, $response->getOrderNumber());
@@ -62,10 +63,11 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToConfirmAPurchaseOrderAndExpectASuccessfulMessage()
     {
-        $expectedResponse = new ConfirmSuccessful();
+        $order = new ConfirmOrder(9900);
+        $expectedResponse = new ConfirmSuccessful($order);
 
         $client = $this->getMockSoapClient($expectedResponse);
-        $response = $client->confirmOrder(new ConfirmOrder(9900));
+        $response = $client->confirmOrder($order);
         $this->assertInstanceOf('\FControl\Message\ConfirmResponse', $response);
         $this->assertTrue($response->isSuccess());
         $this->assertEquals(0, $response->getCode());
@@ -74,10 +76,11 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToCaptureCollectionOfOrdersAndExpectASuccessfulMessage()
     {
-        $expectedResponse = new CaptureOrderCollectionSuccessful();
+        $order = new CaptureOrderCollection(new \DateTime('now'), 2);
+        $expectedResponse = new CaptureOrderCollectionSuccessful($order);
 
         $client = $this->getMockSoapClient($expectedResponse);
-        $response = $client->captureCollectionOrder(new CaptureOrderCollection(new \DateTime('now'), 2));
+        $response = $client->captureCollectionOrder($order);
         $this->assertInstanceOf('\FControl\Message\CaptureCollectionResponse', $response);
         $this->assertTrue($response->isSuccess());
         $this->assertEquals(2, $response->count());
@@ -88,8 +91,9 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToCaptureOfOrderAPurchaseOrderAndExpectAFailedMessage()
     {
-        $client = $this->getMockSoapClient(new CaptureFailed());
-        $response = $client->captureOrder(new CaptureOrder(123));
+        $order = new CaptureOrder(123);
+        $client = $this->getMockSoapClient(new CaptureFailed($order));
+        $response = $client->captureOrder($order);
         $this->assertInstanceOf('\FControl\Message\CaptureResponse', $response);
         $this->assertFalse($response->isSuccess());
         $this->assertEquals(1, $response->getCode());
@@ -98,8 +102,9 @@ class SoapClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIWantToChangeOrderStatusAndExpectASuccessfulMessage()
     {
-        $client = $this->getMockSoapClient(new OrderStatusSuccessful());
-        $response = $client->changeStatus(new OrderStatus(7659, new Status(Status::CANCELLED_SUSPECT), new Reason(Reason::DIVERGENT_ADDRESS)));
+        $order = new OrderStatus(7659, new Status(Status::CANCELLED_SUSPECT), new Reason(Reason::DIVERGENT_ADDRESS));
+        $client = $this->getMockSoapClient(new OrderStatusSuccessful($order));
+        $response = $client->changeStatus($order);
         $this->assertInstanceOf('\FControl\Message\OrderStatusResponse', $response);
         $this->assertTrue($response->isSuccess());
         $this->assertEquals(0, $response->getCode());
