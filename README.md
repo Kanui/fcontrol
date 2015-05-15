@@ -1,6 +1,10 @@
 FControl Integration API
 ========================
 
+[![Latest Stable Version](https://poser.pugx.org/kanui/fcontrol/v/stable)](https://packagist.org/packages/kanui/fcontrol)
+[![Total Downloads](https://poser.pugx.org/kanui/fcontrol/downloads)](https://packagist.org/packages/kanui/fcontrol)
+[![License](https://poser.pugx.org/kanui/fcontrol/license)](https://packagist.org/packages/kanui/fcontrol)
+
 FControl is a risk management system which analyses a purchase order
 and define type of risk it can represents for your virtual store.
 
