@@ -80,6 +80,15 @@ class Order extends AbstractParameter
     }
 
     /**
+     * Gets order grand total.
+     * @return float
+     */
+    public function getGrandTotal()
+    {
+        return $this->ValorTotalCompra;
+    }
+
+    /**
      * @param Authentication $authentication
      * @return Order
      */

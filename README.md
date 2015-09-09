@@ -1,6 +1,10 @@
 FControl Integration API
 ========================
 
+[![Latest Stable Version](https://poser.pugx.org/kanui/fcontrol/v/stable)](https://packagist.org/packages/kanui/fcontrol)
+[![Total Downloads](https://poser.pugx.org/kanui/fcontrol/downloads)](https://packagist.org/packages/kanui/fcontrol)
+[![License](https://poser.pugx.org/kanui/fcontrol/license)](https://packagist.org/packages/kanui/fcontrol)
+
 FControl is a risk management system which analyses a purchase order
 and define type of risk it can represents for your virtual store.
 
@@ -22,9 +26,7 @@ Send an order transaction to be analyzed by FControl.
 ```php
 <?php
 
-use FControl\Configuration;
-use FControl\Client\SoapClient;
-use FControl\Message\PublishResponse;
+use FControl\RiskManager;
 use FControl\Tests\Providers\Order as OrderProvider;
 
 // store id is used if you have many stores in FControl system
@@ -33,14 +35,12 @@ $storeId = null;
 // define if is test environment
 $isTestEnvironment = true;
 
-$configuration = new Configuration('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
-
-$client = new SoapClient($configuration);
+$riskManager = RiskManager::create('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
 
 // it will generate a dynamic order to be sent
 $order = new OrderProvider();
 
-$response = $client->publish($order);
+$response = $riskManager->publish($order);
 
 echo $response->getMessage();
 ```
@@ -57,10 +57,8 @@ transaction will be available with its results.
 ```php
 <?php
 
-use FControl\Configuration;
-use FControl\Message\CaptureResponse;
+use FControl\RiskManager;
 use FControl\Parameter\CaptureOrder;
-use FControl\Client\SoapClient;
 
 // store id is used if you have many stores in FControl system
 $storeId = null;
@@ -68,11 +66,9 @@ $storeId = null;
 // define if is test environment
 $isTestEnvironment = true;
 
-$configuration = new Configuration('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
+$riskManager = RiskManager::create('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
 
-$client = new SoapClient($configuration);
-
-$response = $client->captureOrder(new CaptureOrder(9900));
+$response = $riskManager->captureOrder(new CaptureOrder(9900));
 
 if ($response->isSuccess()) {
     echo $response->getStatus()->getName();
@@ -91,9 +87,7 @@ If not confirm this analysis will always be available for capture.
 ```php
 <?php
 
-use FControl\Configuration;
-use FControl\Client\SoapClient;
-use FControl\Message\ConfirmResponse;
+use FControl\RiskManager;
 use FControl\Parameter\ConfirmOrder;
 
 // store id is used if you have many stores in FControl system
@@ -102,11 +96,9 @@ $storeId = null;
 // define if is test environment
 $isTestEnvironment = true;
 
-$configuration = new Configuration('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
+$riskManager = RiskManager::create('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
 
-$client = new SoapClient($configuration);
-
-$response = $client->confirmOrder(new ConfirmOrder(9900));
+$response = $riskManager->confirmOrder(new ConfirmOrder(9900));
 
 echo $response->getMessage();
 ```
@@ -122,9 +114,7 @@ System, you can use this method.
 ```php
 <?php
 
-use FControl\Configuration;
-use FControl\Client\SoapClient;
-use FControl\Message\OrderStatusResponse;
+use FControl\RiskManager;
 use FControl\Parameter\ConfirmOrder;
 use FControl\Parameter\Reason;
 use FControl\Parameter\Status;
@@ -135,13 +125,11 @@ $storeId = null;
 // define if is test environment
 $isTestEnvironment = true;
 
-$configuration = new Configuration('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
-
-$client = new SoapClient($configuration);
+$riskManager = RiskManager::create('https://fcontrol.test/?wsdl', 'username', 'password', $storeId, $isTestEnvironment);
 
 $orderStatus = new OrderStatus(9900, new Status(Status::CANCELLED_SUSPECT), new Reason(Reason::DIVERGENT_ADDRESS));
 
-$response = $client->changeStatus($orderStatus);
+$response = $riskManager->changeStatus($orderStatus);
 
 echo $response->getMessage();
 ```
